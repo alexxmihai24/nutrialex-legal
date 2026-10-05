@@ -6,7 +6,9 @@ Lo ejecuta .github/workflows/precios.yml cada semana; también se puede lanzar a
 """
 import io
 import json
+import os
 import re
+import ssl
 import sys
 import urllib.request
 from datetime import date
@@ -15,6 +17,11 @@ import openpyxl  # con defusedxml instalado, openpyxl lo usa para leer el XML de
 
 PAGE = "https://www.mapa.gob.es/es/alimentacion/temas/consumo-tendencias/panel-de-consumo-alimentario/series-anuales"
 OUT = "precios.json"
+# La web del MAPA usa la raiz "AC RAIZ FNMT-RCM SERVIDORES SEGUROS G2R", que Ubuntu aun no trae.
+# Copia en certs/ (SHA-1 19:87:94:8D:AB:7D:62:00:9E:2D:6B:BE:D8:83:DC:3A:F5:67:99:E8, la misma que
+# Windows tiene en sus raices de confianza). Se anade a las del sistema: la verificacion TLS sigue activa.
+TLS = ssl.create_default_context()
+TLS.load_verify_locations(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "certs", "fnmt-raiz-servidores-seguros-g2r.pem"))
 MONTHS = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"]
 FILE_RE = re.compile(r'href="([^"]*?(\d{4})(' + "|".join(MONTHS) + r')-sd-datos-mensuales-panel-consumo-hogares[^"]*?\.xlsx)"', re.I)
 
@@ -74,7 +81,7 @@ MAPA_LINES = {
 
 def fetch(url: str) -> bytes:
     req = urllib.request.Request(url, headers={"User-Agent": "NutriAlexAI-precios/1.0 (+https://alexxmihai24.github.io/nutrialex-legal/)"})
-    with urllib.request.urlopen(req, timeout=180) as r:
+    with urllib.request.urlopen(req, timeout=180, context=TLS) as r:
         return r.read()
 
 
