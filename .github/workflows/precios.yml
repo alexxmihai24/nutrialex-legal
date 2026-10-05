@@ -1,0 +1,31 @@
+# Actualiza precios.json con el último mes publicado por el MAPA. El MAPA no avisa del día
+# de publicación, así que se revisa cada semana; si el mes ya está, el script no descarga nada.
+name: Precios MAPA
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install openpyxl==3.1.5 defusedxml==0.7.1
+      - run: python scripts/update_prices.py
+      - name: Guardar si hay mes nuevo
+        run: |
+          git diff --quiet -- precios.json && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add precios.json
+          git commit -m "Precios MAPA $(python -c 'import json; print(json.load(open("precios.json"))["period"])')"
+          git push
