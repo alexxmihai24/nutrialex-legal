@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Tu cuenta · NutriAlex AI</title>
+<style>
+  :root { --bg: #ffffff; --text: #1a1a1a; --muted: #555; --accent: #3f6212; --line: #d4d4d4; --danger: #b91c1c; --btn-text: #ffffff; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0a1a0a; --text: #f2f2f2; --muted: #a1a1aa; --accent: #a3e635; --line: #2a3a2a; --danger: #f87171; --btn-text: #0a1a0a; } }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 420px; margin: 0 auto; padding: 48px 16px; }
+  h1 { font-size: 1.5rem; margin: 0 0 12px; }
+  p { margin: 0 0 16px; }
+  .muted { color: var(--muted); font-size: .9rem; }
+  label { display: block; font-size: .9rem; color: var(--muted); margin: 16px 0 6px; }
+  input { width: 100%; box-sizing: border-box; font: inherit; padding: 12px; border-radius: 10px; border: 1px solid var(--line); background: transparent; color: var(--text); }
+  button { width: 100%; margin-top: 20px; padding: 14px; border: 0; border-radius: 12px; background: var(--accent); color: var(--btn-text); font: inherit; font-weight: 700; cursor: pointer; }
+  button:disabled { opacity: .5; cursor: default; }
+  .error { color: var(--danger); }
+  [hidden] { display: none; }
+</style>
+</head>
+<body>
+<main>
+  <h1 id="title">NutriAlex AI</h1>
+  <p id="message">Comprobando el enlace…</p>
+  <form id="form" hidden>
+    <label for="password">Nueva contraseña (mínimo 8 caracteres)</label>
+    <input id="password" type="password" autocomplete="new-password" minlength="8" required>
+    <label for="repeat">Repite la contraseña</label>
+    <input id="repeat" type="password" autocomplete="new-password" minlength="8" required>
+    <p id="formError" class="error" hidden></p>
+    <button id="save" type="submit">Guardar contraseña</button>
+  </form>
+  <p class="muted">¿Problemas? Escribe a <a href="mailto:amihaita831@gmail.com">amihaita831@gmail.com</a>.</p>
+</main>
+
+<!-- Misma version que la app; la integridad (SRI) impide que se ejecute otro codigo si la CDN cambiara el fichero. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"
+        integrity="sha384-Rj26LVGvoeRVR6+mwQmFfcR3QOBEwT+ZmuCWpuiqeTzJpCs0ER4ITAWGb4Hiy3Ok"
+        crossorigin="anonymous"></script>
+<script>
+  // Pagina de los enlaces de los correos de Supabase Auth (confirmar correo y cambiar contrasena).
+  // La URL y la clave publicable son publicas, igual que en la app. El token llega en el fragmento (#),
+  // que el navegador no envia a ningun servidor, y la sesion no se guarda (persistSession: false).
+  var SUPABASE_URL = 'https://dthvytwxfeqpaghdpgmi.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_RLeo0Q06FpSJWmsd-UjtOQ__k_MwGkm';
+
+  var title = document.getElementById('title');
+  var message = document.getElementById('message');
+  var form = document.getElementById('form');
+  var formError = document.getElementById('formError');
+
+  function show(t, m, isError) {
+    title.textContent = t;
+    message.textContent = m;
+    message.className = isError ? 'error' : '';
+  }
+
+  var hash = new URLSearchParams(location.hash.slice(1));
+  var query = new URLSearchParams(location.search);
+  var type = hash.get('type') || query.get('type');
+  var linkError = hash.get('error_description') || query.get('error_description');
+
+  // Quitar el token de la barra de direcciones y del historial.
+  function clearUrl() { if (location.hash) history.replaceState(null, '', location.pathname); }
+
+  if (linkError) {
+    show('Enlace no válido', 'El enlace no es válido o ha caducado. Pide otro desde la app.', true);
+  } else if (type === 'recovery') {
+    var sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+      auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: true, flowType: 'implicit' },
+    });
+    // supabase-js lee el token del fragmento de forma asincrona: borrarlo de la URL solo despues.
+    sb.auth.getSession().then(function (res) {
+      clearUrl();
+      if (!res.data.session) {
+        show('Enlace no válido', 'El enlace no es válido o ha caducado. Pide otro desde la app.', true);
+        return;
+      }
+      show('Nueva contraseña', 'Escribe la contraseña nueva para tu cuenta de NutriAlex AI.');
+      form.hidden = false;
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var password = document.getElementById('password').value;
+      var repeat = document.getElementById('repeat').value;
+      formError.hidden = true;
+      if (password.length < 8) { formError.textContent = 'Usa al menos 8 caracteres.'; formError.hidden = false; return; }
+      if (password !== repeat) { formError.textContent = 'Las dos contraseñas no coinciden.'; formError.hidden = false; return; }
+      document.getElementById('save').disabled = true;
+      sb.auth.updateUser({ password: password }).then(function (res) {
+        if (res.error) {
+          formError.textContent = res.error.code === 'same_password'
+            ? 'Esa ya es tu contraseña. Escribe una distinta.'
+            : 'No se pudo cambiar. Pide otro enlace desde la app.';
+          formError.hidden = false;
+          document.getElementById('save').disabled = false;
+          return;
+        }
+        form.hidden = true;
+        show('Contraseña cambiada', 'Vuelve a la app e inicia sesión con tu contraseña nueva.');
+        sb.auth.signOut({ scope: 'local' });
+      });
+    });
+  } else if (type === 'signup' || type === 'email' || type === 'invite' || type === 'magiclink') {
+    show('Correo confirmado', 'Tu cuenta está lista. Vuelve a la app e inicia sesión.');
+  } else {
+    show('NutriAlex AI', 'Si has llegado aquí desde un correo de la app, vuelve a la app e inicia sesión.');
+  }
+  if (type !== 'recovery') clearUrl();
+</script>
+</body>
+</html>
