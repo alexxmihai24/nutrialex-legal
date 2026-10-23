@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Politica de confidențialitate · NutriAlex AI</title>
+<style>
+  :root { --bg: #ffffff; --text: #1a1a1a; --muted: #555; --accent: #3f6212; --line: #e5e5e5; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0a1a0a; --text: #f2f2f2; --muted: #a1a1aa; --accent: #a3e635; --line: #2a3a2a; } }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 1.7rem; margin: 0 0 4px; }
+  h2 { font-size: 1.15rem; margin: 32px 0 8px; color: var(--accent); }
+  p, li { color: var(--text); }
+  .muted { color: var(--muted); font-size: .9rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .93rem; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 6px; border-bottom: 1px solid var(--line); }
+  a { color: var(--accent); }
+  .langs { font-size: .9rem; margin: 0 0 24px; }
+  .langs a[aria-current] { color: var(--text); font-weight: 700; text-decoration: none; }
+</style>
+</head>
+<body>
+<main>
+<nav class="langs"><a href="privacidad.html" lang="es">Español</a> · <a href="privacidad-en.html" lang="en">English</a> · <a href="privacidad-ro.html" lang="ro" aria-current="page">Română</a></nav>
+<h1>Politica de confidențialitate NutriAlex AI</h1>
+<p class="muted">Ultima actualizare: 23 octombrie 2026</p>
+<p class="muted">Aceasta este o traducere a <a href="privacidad.html">versiunii în limba spaniolă</a>, care prevalează în caz de neconcordanță.</p>
+
+<p>NutriAlex AI este o aplicație de nutriție: înregistrezi ce mănânci, îți vezi caloriile și macronutrienții și primești un plan de mese și o rutină de exerciții. Această politică explică ce date folosește aplicația, unde sunt păstrate și cu cine sunt partajate.</p>
+
+<p><strong>Pe scurt:</strong> fără reclame și fără statistici de utilizare. Ai nevoie de un cont ca să folosești aplicația. Profilul și jurnalul tău sunt păstrate pe telefon și, ca o copie, în contul tău, pe servere din Uniunea Europeană, ca să nu le pierzi. La inteligența artificială ajunge doar ce alegi tu să analizezi (o fotografie sau o întrebare).</p>
+
+<h2>1. Operatorul</h2>
+<p>Alex, dezvoltator independent (persoană fizică). Contact: <a href="mailto:amihaita831@gmail.com">amihaita831@gmail.com</a>.</p>
+
+<h2>2. Datele profilului și ale jurnalului tău</h2>
+<p>Nume, vârstă, sex, greutate, înălțime, obiectiv, nivel de activitate, restricții alimentare, alergii, accidentări, ore de somn, buget, jurnalul meselor, apă, istoricul greutății, plan, rutină, istoricul antrenamentelor (exerciții, greutăți și repetări), planul nutrițional (termen, greutate țintă și calorii) și check-in-uri. Sunt păstrate în memoria internă a aplicației și, ca o copie, în contul tău (punctul 2 bis). Unele sunt date privind sănătatea (greutatea, alergiile, accidentările).</p>
+<p>Poți începe de la zero cu <em>Profil → Resetează profilul</em> și poți șterge totul cu <em>Profil → Cont → Șterge contul</em>.</p>
+
+<h2>2 bis. Contul tău</h2>
+<p>Contul este necesar ca să folosești aplicația. Păstrăm:</p>
+<ul>
+  <li>Prenumele, numele și adresa ta de e-mail.</li>
+  <li>Dacă te înregistrezi cu e-mail, parola ta, păstrată criptat (hash) de Supabase Auth: nimeni, nici măcar noi, nu o poate citi.</li>
+  <li>Dacă intri cu Google, Google îți confirmă identitatea și ne dă numele tău, e-mailul și adresa fotografiei de profil (fotografia nu o folosim). Nu vedem niciodată parola ta Google.</li>
+  <li>Versiunea termenilor și condițiilor pe care i-ai acceptat și data.</li>
+  <li>Limba aplicației, ca să-ți scriem e-mailurile contului în limba ta.</li>
+  <li>O copie a datelor de la punctul 2, ca să le poți recupera dacă schimbi telefonul sau reinstalezi aplicația. Se actualizează singură cât timp ești conectat. Când te deconectezi, se șterg de pe telefon și rămân în contul tău.</li>
+</ul>
+<p>Temei juridic: executarea contractului pe care îl accepți când îți creezi contul (art. 6 alin. (1) lit. b) din RGPD) și, pentru datele privind sănătatea, consimțământul tău explicit la înregistrare (art. 9 alin. (2) lit. a) din RGPD), pe care îl poți retrage oricând ștergând contul.</p>
+
+<h2>3. Date care pleacă de pe telefonul tău</h2>
+<table>
+  <tr><th>Când</th><th>Ce se trimite</th><th>Cui</th></tr>
+  <tr><td>Analizezi o fotografie cu mâncare</td><td>Fotografia, micșorată</td><td>Serverul nostru și Google (Gemini)</td></tr>
+  <tr><td>Analizezi o fotografie a frigiderului</td><td>Fotografia, obiectivul tău, caloriile țintă, restricțiile alimentare și alergiile tale (ca să nu-ți propună rețete pe care nu le poți mânca)</td><td>Serverul nostru și Google (Gemini)</td></tr>
+  <tr><td>Îl întrebi pe Alex</td><td>Întrebarea ta, vârsta, obiectivul, caloriile țintă, restricțiile și bugetul. Numele tău nu se trimite</td><td>Serverul nostru și Google (Gemini)</td></tr>
+  <tr><td>Orice folosire a AI</td><td>Identificatorul contului tău, pentru a număra analizele folosite, și limba aplicației, ca să-ți răspundă în ea</td><td>Serverul nostru</td></tr>
+  <tr><td>Intri cu Google</td><td>Cererea ta de autentificare; Google ne trimite înapoi numele tău, e-mailul și fotografia de profil</td><td>Google</td></tr>
+  <tr><td>Cât timp ești conectat</td><td>Copia datelor tale (punctul 2 bis)</td><td>Serverul nostru</td></tr>
+  <tr><td>Scanezi un cod de bare sau cauți produse de marcă</td><td>Codul sau textul căutat</td><td>Open Food Facts</td></tr>
+  <tr><td>După analiza unei fotografii cu mâncare</td><td>Numele alimentelor identificate, în engleză</td><td>USDA FoodData Central</td></tr>
+</table>
+<p>Ca la orice conexiune la internet, aceste servicii primesc adresa IP a dispozitivului tău.</p>
+
+<h2>4. În ce scop și pe ce temei</h2>
+<ul>
+  <li><strong>Ca să-ți oferim serviciul pe care îl ceri</strong> (analiza fotografiei, răspunsul la întrebare, căutarea produsului). Temei juridic: executarea serviciului pe care îl soliciți (art. 6 alin. (1) lit. b) din RGPD). Pentru datele privind sănătatea care însoțesc o analiză (de exemplu, alergiile tale), consimțământul tău explicit când folosești acea funcție (art. 9 alin. (2) lit. a) din RGPD). Dacă nu vrei să le trimiți, nu folosi funcțiile cu AI: jurnalul, căutarea, planul și rutina funcționează fără ele.</li>
+  <li><strong>Contul tău și copia datelor tale</strong>, ca să nu le pierzi și să poți folosi aplicația pe alt telefon. Temei juridic: executarea contractului și, pentru datele privind sănătatea, consimțământul tău explicit (punctul 2 bis).</li>
+  <li><strong>Limitarea folosirii gratuite a AI</strong> prin contorul din contul tău. Temei juridic: interesul legitim de a preveni abuzurile.</li>
+</ul>
+<p>Nu vindem datele tale, nu le folosim pentru publicitate și nu creăm profiluri despre tine.</p>
+
+<h2>5. Furnizori</h2>
+<ul>
+  <li><strong>Supabase</strong> (server, găzduit în Uniunea Europeană): păstrează contul tău, copia datelor tale și contorul de folosire a AI și transmite către AI ce analizezi. Nu păstrează fotografiile și nici întrebările.</li>
+  <li><strong>Google, autentificarea cu Google</strong>: doar dacă alegi să intri cu contul tău Google.</li>
+  <li><strong>Google, API-ul Gemini</strong> (serviciu cu plată): analizează fotografia sau întrebarea. Conform condițiilor sale, Google nu folosește aceste date pentru a-și antrena modelele și le păstrează doar o perioadă limitată, pentru a detecta abuzuri. Le poate prelucra în afara Uniunii Europene, cu garanțiile prevăzute de RGPD (clauze contractuale standard sau Cadrul UE-SUA privind confidențialitatea datelor).</li>
+  <li><strong>Open Food Facts</strong> (Franța): bază de date deschisă cu produse.</li>
+  <li><strong>USDA FoodData Central</strong> (Statele Unite): baza de date publică de nutrienți a Departamentului Agriculturii al SUA.</li>
+  <li><strong>Cloudflare Turnstile</strong> (Statele Unite): când îți creezi un cont, te conectezi sau ceri o parolă nouă, verifică faptul că nu ești un robot. Primește date tehnice de la browserul intern al aplicației (adresa IP, tipul dispozitivului și al browserului) doar pentru această verificare. Temei juridic: interesul legitim de a preveni abuzurile.</li>
+  <li><strong>GitHub Pages</strong> (Statele Unite): de aici aplicația descarcă, cel mult o dată pe zi, tabelul public cu prețurile medii pentru lista de cumpărături (date ale Ministerului Agriculturii din Spania). Nu se trimite nicio dată despre tine; ca la orice descărcare, GitHub vede adresa IP.</li>
+</ul>
+
+<h2>6. Cât timp</h2>
+<p>Datele de pe telefon, până când te deconectezi sau ștergi contul. Contul, copia din cloud și contorul de folosire a AI, până când ștergi contul; pot rămâne câteva zile în copiile de siguranță tehnice ale furnizorului. Serverul nostru nu păstrează fotografii și nici întrebări.</p>
+
+<h2 id="borrar-cuenta">7 bis. Cum îți ștergi contul</h2>
+<p>În aplicație: <em>Profil → Cont → Șterge contul</em>. Se șterg imediat contul, copia din cloud, contorul de folosire a AI și datele de pe telefon. Dacă nu mai ai aplicația, scrie-ne de pe adresa de e-mail a contului la <a href="mailto:amihaita831@gmail.com">amihaita831@gmail.com</a> și cere ștergerea; o vom face în cel mult 30 de zile.</p>
+
+<h2>7. Drepturile tale</h2>
+<p>Poți cere accesul, rectificarea, ștergerea, opoziția, restricționarea și portabilitatea scriind la <a href="mailto:amihaita831@gmail.com">amihaita831@gmail.com</a>. Scrie-ne de pe adresa de e-mail a contului, ca să te putem identifica. Poți depune și o plângere la Agenția Spaniolă pentru Protecția Datelor (<a href="https://www.aepd.es">www.aepd.es</a>) sau la autoritatea de protecție a datelor din țara Uniunii Europene în care locuiești.</p>
+
+<h2>8. Minori</h2>
+<p>Aplicația nu se adresează persoanelor sub 18 ani.</p>
+
+<h2>9. Permisiunile telefonului</h2>
+<ul>
+  <li><strong>Camera:</strong> pentru a fotografia mâncarea sau frigiderul și pentru a citi coduri de bare. Se folosește doar când ceri tu.</li>
+  <li><strong>Fotografii:</strong> se deschide selectorul sistemului doar pentru fotografia pe care o alegi.</li>
+</ul>
+
+<h2>10. Avertisment privind sănătatea</h2>
+<p>NutriAlex AI nu este un serviciu medical și nu înlocuiește un profesionist din domeniul sănătății. Caloriile, macronutrienții, planurile și răspunsurile AI sunt estimări orientative și pot conține erori. Consultă un specialist înainte de a face schimbări importante în dieta sau în exercițiile tale, mai ales dacă ai o boală, ești însărcinată sau ai avut tulburări de comportament alimentar.</p>
+
+<h2>11. Modificări</h2>
+<p>Dacă se schimbă ceva important, vom actualiza această pagină și data de mai sus.</p>
+</main>
+</body>
+</html>

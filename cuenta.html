@@ -26,14 +26,14 @@
   <h1 id="title">NutriAlex AI</h1>
   <p id="message">Comprobando el enlace…</p>
   <form id="form" hidden>
-    <label for="password">Nueva contraseña (mínimo 8 caracteres)</label>
+    <label for="password" id="passwordLabel">Nueva contraseña (mínimo 8 caracteres)</label>
     <input id="password" type="password" autocomplete="new-password" minlength="8" required>
-    <label for="repeat">Repite la contraseña</label>
+    <label for="repeat" id="repeatLabel">Repite la contraseña</label>
     <input id="repeat" type="password" autocomplete="new-password" minlength="8" required>
     <p id="formError" class="error" hidden></p>
     <button id="save" type="submit">Guardar contraseña</button>
   </form>
-  <p class="muted">¿Problemas? Escribe a <a href="mailto:amihaita831@gmail.com">amihaita831@gmail.com</a>.</p>
+  <p class="muted"><span id="help">¿Problemas? Escribe a</span> <a href="mailto:amihaita831@gmail.com">amihaita831@gmail.com</a>.</p>
 </main>
 
 <!-- Misma version que la app; la integridad (SRI) impide que se ejecute otro codigo si la CDN cambiara el fichero. -->
@@ -46,6 +46,56 @@
   // que el navegador no envia a ningun servidor, y la sesion no se guarda (persistSession: false).
   var SUPABASE_URL = 'https://dthvytwxfeqpaghdpgmi.supabase.co';
   var SUPABASE_KEY = 'sb_publishable_RLeo0Q06FpSJWmsd-UjtOQ__k_MwGkm';
+
+  // Se abre desde un correo, fuera de la app: idioma del navegador (español o rumano; si no, inglés).
+  var TEXTS = {
+    es: {
+      page: 'Tu cuenta · NutriAlex AI', checking: 'Comprobando el enlace…',
+      password: 'Nueva contraseña (mínimo 8 caracteres)', repeat: 'Repite la contraseña', save: 'Guardar contraseña',
+      help: '¿Problemas? Escribe a',
+      invalidTitle: 'Enlace no válido', invalid: 'El enlace no es válido o ha caducado. Pide otro desde la app.',
+      newTitle: 'Nueva contraseña', newText: 'Escribe la contraseña nueva para tu cuenta de NutriAlex AI.',
+      short: 'Usa al menos 8 caracteres.', mismatch: 'Las dos contraseñas no coinciden.',
+      same: 'Esa ya es tu contraseña. Escribe una distinta.', failed: 'No se pudo cambiar. Pide otro enlace desde la app.',
+      changedTitle: 'Contraseña cambiada', changed: 'Vuelve a la app e inicia sesión con tu contraseña nueva.',
+      confirmedTitle: 'Correo confirmado', confirmed: 'Tu cuenta está lista. Vuelve a la app e inicia sesión.',
+      other: 'Si has llegado aquí desde un correo de la app, vuelve a la app e inicia sesión.',
+    },
+    en: {
+      page: 'Your account · NutriAlex AI', checking: 'Checking the link…',
+      password: 'New password (at least 8 characters)', repeat: 'Repeat the password', save: 'Save password',
+      help: 'Problems? Write to',
+      invalidTitle: 'Invalid link', invalid: 'The link is not valid or has expired. Request a new one from the app.',
+      newTitle: 'New password', newText: 'Enter the new password for your NutriAlex AI account.',
+      short: 'Use at least 8 characters.', mismatch: "The two passwords don't match.",
+      same: "That's already your password. Choose a different one.", failed: "It couldn't be changed. Request a new link from the app.",
+      changedTitle: 'Password changed', changed: 'Go back to the app and sign in with your new password.',
+      confirmedTitle: 'Email confirmed', confirmed: 'Your account is ready. Go back to the app and sign in.',
+      other: 'If you got here from an app email, go back to the app and sign in.',
+    },
+    ro: {
+      page: 'Contul tău · NutriAlex AI', checking: 'Se verifică linkul…',
+      password: 'Parola nouă (cel puțin 8 caractere)', repeat: 'Repetă parola', save: 'Salvează parola',
+      help: 'Probleme? Scrie la',
+      invalidTitle: 'Link invalid', invalid: 'Linkul nu este valid sau a expirat. Cere altul din aplicație.',
+      newTitle: 'Parolă nouă', newText: 'Scrie parola nouă pentru contul tău NutriAlex AI.',
+      short: 'Folosește cel puțin 8 caractere.', mismatch: 'Cele două parole nu coincid.',
+      same: 'Aceasta este deja parola ta. Scrie una diferită.', failed: 'Nu s-a putut schimba. Cere alt link din aplicație.',
+      changedTitle: 'Parolă schimbată', changed: 'Întoarce-te în aplicație și conectează-te cu parola nouă.',
+      confirmedTitle: 'E-mail confirmat', confirmed: 'Contul tău este gata. Întoarce-te în aplicație și conectează-te.',
+      other: 'Dacă ai ajuns aici dintr-un e-mail al aplicației, întoarce-te în aplicație și conectează-te.',
+    },
+  };
+  var lang = (navigator.language || '').slice(0, 2).toLowerCase();
+  if (!TEXTS[lang]) lang = 'en';
+  var t = TEXTS[lang];
+  document.documentElement.lang = lang;
+  document.title = t.page;
+  document.getElementById('message').textContent = t.checking;
+  document.getElementById('passwordLabel').textContent = t.password;
+  document.getElementById('repeatLabel').textContent = t.repeat;
+  document.getElementById('save').textContent = t.save;
+  document.getElementById('help').textContent = t.help;
 
   var title = document.getElementById('title');
   var message = document.getElementById('message');
@@ -67,7 +117,7 @@
   function clearUrl() { if (location.hash) history.replaceState(null, '', location.pathname); }
 
   if (linkError) {
-    show('Enlace no válido', 'El enlace no es válido o ha caducado. Pide otro desde la app.', true);
+    show(t.invalidTitle, t.invalid, true);
   } else if (type === 'recovery') {
     var sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
       auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: true, flowType: 'implicit' },
@@ -76,10 +126,10 @@
     sb.auth.getSession().then(function (res) {
       clearUrl();
       if (!res.data.session) {
-        show('Enlace no válido', 'El enlace no es válido o ha caducado. Pide otro desde la app.', true);
+        show(t.invalidTitle, t.invalid, true);
         return;
       }
-      show('Nueva contraseña', 'Escribe la contraseña nueva para tu cuenta de NutriAlex AI.');
+      show(t.newTitle, t.newText);
       form.hidden = false;
     });
 
@@ -88,27 +138,27 @@
       var password = document.getElementById('password').value;
       var repeat = document.getElementById('repeat').value;
       formError.hidden = true;
-      if (password.length < 8) { formError.textContent = 'Usa al menos 8 caracteres.'; formError.hidden = false; return; }
-      if (password !== repeat) { formError.textContent = 'Las dos contraseñas no coinciden.'; formError.hidden = false; return; }
+      if (password.length < 8) { formError.textContent = t.short; formError.hidden = false; return; }
+      if (password !== repeat) { formError.textContent = t.mismatch; formError.hidden = false; return; }
       document.getElementById('save').disabled = true;
       sb.auth.updateUser({ password: password }).then(function (res) {
         if (res.error) {
           formError.textContent = res.error.code === 'same_password'
-            ? 'Esa ya es tu contraseña. Escribe una distinta.'
-            : 'No se pudo cambiar. Pide otro enlace desde la app.';
+            ? t.same
+            : t.failed;
           formError.hidden = false;
           document.getElementById('save').disabled = false;
           return;
         }
         form.hidden = true;
-        show('Contraseña cambiada', 'Vuelve a la app e inicia sesión con tu contraseña nueva.');
+        show(t.changedTitle, t.changed);
         sb.auth.signOut({ scope: 'local' });
       });
     });
   } else if (type === 'signup' || type === 'email' || type === 'invite' || type === 'magiclink') {
-    show('Correo confirmado', 'Tu cuenta está lista. Vuelve a la app e inicia sesión.');
+    show(t.confirmedTitle, t.confirmed);
   } else {
-    show('NutriAlex AI', 'Si has llegado aquí desde un correo de la app, vuelve a la app e inicia sesión.');
+    show('NutriAlex AI', t.other);
   }
   if (type !== 'recovery') clearUrl();
 </script>

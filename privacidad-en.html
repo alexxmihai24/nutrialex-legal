@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy policy · NutriAlex AI</title>
+<style>
+  :root { --bg: #ffffff; --text: #1a1a1a; --muted: #555; --accent: #3f6212; --line: #e5e5e5; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0a1a0a; --text: #f2f2f2; --muted: #a1a1aa; --accent: #a3e635; --line: #2a3a2a; } }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 1.7rem; margin: 0 0 4px; }
+  h2 { font-size: 1.15rem; margin: 32px 0 8px; color: var(--accent); }
+  p, li { color: var(--text); }
+  .muted { color: var(--muted); font-size: .9rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .93rem; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 6px; border-bottom: 1px solid var(--line); }
+  a { color: var(--accent); }
+  .langs { font-size: .9rem; margin: 0 0 24px; }
+  .langs a[aria-current] { color: var(--text); font-weight: 700; text-decoration: none; }
+</style>
+</head>
+<body>
+<main>
+<nav class="langs"><a href="privacidad.html" lang="es">Español</a> · <a href="privacidad-en.html" lang="en" aria-current="page">English</a> · <a href="privacidad-ro.html" lang="ro">Română</a></nav>
+<h1>NutriAlex AI privacy policy</h1>
+<p class="muted">Last updated: 23 October 2026</p>
+<p class="muted">This is a translation of the <a href="privacidad.html">Spanish version</a>, which prevails in case of any discrepancy.</p>
+
+<p>NutriAlex AI is a nutrition app: you log what you eat, see your calories and macros, and get a meal plan and an exercise routine. This policy explains what data the app uses, where it is stored and who it is shared with.</p>
+
+<p><strong>In short:</strong> no advertising and no analytics. You need an account to use the app. Your profile and your diary are stored on your phone, with a copy in your account on servers in the European Union, so you don't lose them. The artificial intelligence only receives what you choose to analyse (a photo or a question).</p>
+
+<h2>1. Data controller</h2>
+<p>Alex, independent developer (individual). Contact: <a href="mailto:amihaita831@gmail.com">amihaita831@gmail.com</a>.</p>
+
+<h2>2. Your profile and diary data</h2>
+<p>Name, age, sex, weight, height, goal, activity level, dietary restrictions, allergies, injuries, hours of sleep, budget, food diary, water, weight history, plan, routine, workout history (exercises, weights and repetitions), nutrition plan (timeframe, target weight and calories) and check-ins. They are stored in the app's internal storage and, as a copy, in your account (section 2a). Some of them are health data (weight, allergies, injuries).</p>
+<p>You can start from scratch with <em>Profile → Reset profile</em> and delete everything with <em>Profile → Account → Delete account</em>.</p>
+
+<h2>2a. Your account</h2>
+<p>An account is required to use the app. We store:</p>
+<ul>
+  <li>Your first and last name and your email address.</li>
+  <li>If you sign up with email, your password, stored encrypted (hashed) by Supabase Auth: nobody, not even us, can read it.</li>
+  <li>If you sign in with Google, Google confirms your identity and gives us your name, your email and the address of your profile picture (we don't use the picture). We never see your Google password.</li>
+  <li>The version of the terms and conditions you accepted, and the date.</li>
+  <li>The app's language, so that the account emails are written in your language.</li>
+  <li>A copy of the data in section 2, so you can get it back if you change phones or reinstall the app. It updates automatically while you are signed in. When you sign out, it is deleted from the phone and stays in your account.</li>
+</ul>
+<p>Legal basis: performance of the contract you accept when you create the account (Art. 6(1)(b) GDPR) and, for health data, your explicit consent when you sign up (Art. 9(2)(a) GDPR), which you can withdraw at any time by deleting the account.</p>
+
+<h2>3. Data that leaves your phone</h2>
+<table>
+  <tr><th>When</th><th>What is sent</th><th>To whom</th></tr>
+  <tr><td>You analyse a food photo</td><td>The photo, reduced in size</td><td>Our server and Google (Gemini)</td></tr>
+  <tr><td>You analyse a photo of your fridge</td><td>The photo, your goal, your calorie target, your dietary restrictions and your allergies (so that it doesn't suggest recipes you can't eat)</td><td>Our server and Google (Gemini)</td></tr>
+  <tr><td>You ask Alex</td><td>Your question, age, goal, calorie target, restrictions and budget. Your name is not sent</td><td>Our server and Google (Gemini)</td></tr>
+  <tr><td>Any use of the AI</td><td>Your account identifier, to count the analyses used, and the app's language, so that it answers you in it</td><td>Our server</td></tr>
+  <tr><td>You sign in with Google</td><td>Your sign-in request; Google sends us back your name, your email and your profile picture</td><td>Google</td></tr>
+  <tr><td>While you are signed in</td><td>The copy of your data (section 2a)</td><td>Our server</td></tr>
+  <tr><td>You scan a barcode or search for branded products</td><td>The code or the text searched for</td><td>Open Food Facts</td></tr>
+  <tr><td>After analysing a food photo</td><td>The names of the foods identified, in English</td><td>USDA FoodData Central</td></tr>
+</table>
+<p>As with any internet connection, these services receive your device's IP address.</p>
+
+<h2>4. Purposes and legal basis</h2>
+<ul>
+  <li><strong>Providing the service you ask for</strong> (analysing the photo, answering the question, finding the product). Legal basis: performance of the service you request (Art. 6(1)(b) GDPR). For the health data that comes with an analysis (for example, your allergies), your explicit consent when you use that feature (Art. 9(2)(a) GDPR). If you don't want to send it, don't use the AI features: the diary, the search, the plan and the routine work without them.</li>
+  <li><strong>Your account and the copy of your data</strong>, so you don't lose them and can use the app on another phone. Legal basis: performance of the contract and, for health data, your explicit consent (section 2a).</li>
+  <li><strong>Limiting free use of the AI</strong> through your account's counter. Legal basis: legitimate interest in preventing abuse.</li>
+</ul>
+<p>We don't sell your data, we don't use it for advertising and we don't build profiles of you.</p>
+
+<h2>5. Providers</h2>
+<ul>
+  <li><strong>Supabase</strong> (server, hosted in the European Union): stores your account, the copy of your data and the AI usage counter, and passes what you analyse on to the AI. It does not store the photos or the questions.</li>
+  <li><strong>Google, Sign in with Google</strong>: only if you choose to sign in with your Google account.</li>
+  <li><strong>Google, Gemini API</strong> (paid service): analyses the photo or the question. Under its terms, Google does not use this data to train its models and only keeps it for a limited time to detect abuse. It may process it outside the European Union, with GDPR safeguards (standard contractual clauses or the EU-US Data Privacy Framework).</li>
+  <li><strong>Open Food Facts</strong> (France): open database of products.</li>
+  <li><strong>USDA FoodData Central</strong> (United States): public nutrient database of the US Department of Agriculture.</li>
+  <li><strong>Cloudflare Turnstile</strong> (United States): when you create an account, sign in or ask for a new password, it checks that you are not a robot. It receives technical data from the app's built-in browser (IP address, device and browser type) only for that check. Legal basis: legitimate interest in preventing abuse.</li>
+  <li><strong>GitHub Pages</strong> (United States): from here the app downloads, at most once a day, the public table of average prices for the shopping list (data from the Spanish Ministry of Agriculture). None of your data is sent; as with any download, GitHub sees the IP address.</li>
+</ul>
+
+<h2>6. How long</h2>
+<p>The data on the phone, until you sign out or delete the account. The account, the cloud copy and the AI usage counter, until you delete the account; they may remain for a few days in the provider's technical backups. Our server does not store photos or questions.</p>
+
+<h2 id="borrar-cuenta">7a. How to delete your account</h2>
+<p>In the app: <em>Profile → Account → Delete account</em>. Your account, the cloud copy, the AI usage counter and the data on the phone are deleted immediately. If you no longer have the app, write from your account's email to <a href="mailto:amihaita831@gmail.com">amihaita831@gmail.com</a> asking for deletion and we will do it within 30 days at most.</p>
+
+<h2>7. Your rights</h2>
+<p>You can request access, rectification, erasure, objection, restriction and portability by writing to <a href="mailto:amihaita831@gmail.com">amihaita831@gmail.com</a>. Write to us from your account's email so that we can identify you. You can also lodge a complaint with the Spanish Data Protection Agency (<a href="https://www.aepd.es">www.aepd.es</a>) or with the data protection authority of the European Union country where you live.</p>
+
+<h2>8. Minors</h2>
+<p>The app is not intended for people under 18.</p>
+
+<h2>9. Phone permissions</h2>
+<ul>
+  <li><strong>Camera:</strong> to photograph your food or your fridge and to read barcodes. It is only used when you ask.</li>
+  <li><strong>Photos:</strong> the system picker opens only for the photo you choose.</li>
+</ul>
+
+<h2>10. Health notice</h2>
+<p>NutriAlex AI is not a medical service and does not replace a healthcare professional. Calories, macros, plans and AI answers are approximate estimates and may contain errors. Talk to a professional before making major changes to your diet or exercise, especially if you have an illness, are pregnant or have had an eating disorder.</p>
+
+<h2>11. Changes</h2>
+<p>If anything important changes, we will update this page and the date above.</p>
+</main>
+</body>
+</html>

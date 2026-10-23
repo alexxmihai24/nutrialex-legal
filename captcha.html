@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="es">
+<html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Verificación · NutriAlex AI</title>
+<title>NutriAlex AI</title>
 <!-- La app la muestra dentro de una WebView en Crear cuenta / Iniciar sesión / Olvidé mi contraseña.
      Turnstile (Cloudflare) comprueba que no es un robot; el token va a Supabase, que lo valida con la clave secreta. -->
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=init&render=explicit" async defer></script>
@@ -18,6 +18,9 @@
   // Clave pública del sitio de Turnstile. La de abajo es la de prueba de Cloudflare (siempre pasa):
   // sustituirla por la real al activar el CAPTCHA en Supabase (ver docs/publicacion.md de la app).
   var SITE_KEY = '1x00000000000000000000AA';
+  // La app pasa su idioma (?lang=es|en|ro); sin el, el del movil.
+  var LANG = new URLSearchParams(location.search).get('lang');
+  if (['es', 'en', 'ro'].indexOf(LANG) < 0) LANG = 'auto';
 
   function send(msg) {
     if (window.ReactNativeWebView) window.ReactNativeWebView.postMessage(JSON.stringify(msg));
@@ -27,7 +30,7 @@
     turnstile.render('#widget', {
       sitekey: SITE_KEY,
       theme: 'dark',
-      language: 'es',
+      language: LANG,
       callback: function (token) { send({ token: token }); },
       'expired-callback': function () { send({ expired: true }); },
       'error-callback': function () { send({ error: true }); },
