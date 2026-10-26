@@ -15,9 +15,9 @@
 <body>
 <div id="widget"></div>
 <script>
-  // Clave pública del sitio de Turnstile. La de abajo es la de prueba de Cloudflare (siempre pasa):
-  // sustituirla por la real al activar el CAPTCHA en Supabase (ver docs/publicacion.md de la app).
-  var SITE_KEY = '1x00000000000000000000AA';
+  // Clave pública del sitio de Turnstile (widget "NutriAlex", hostname alexxmihai24.github.io).
+  // La de prueba de Cloudflare, que siempre pasa, es '1x00000000000000000000AA'.
+  var SITE_KEY = '0x4AAAAAAFnIxDBRWO-3i47x';
   // La app pasa su idioma (?lang=es|en|ro); sin el, el del movil.
   var LANG = new URLSearchParams(location.search).get('lang');
   if (['es', 'en', 'ro'].indexOf(LANG) < 0) LANG = 'auto';
